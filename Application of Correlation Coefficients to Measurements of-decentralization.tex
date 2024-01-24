@@ -1,374 +1,41 @@
-%% bare_jrnl.tex
-%% V1.4b
-%% 2015/08/26
-%% by Michael Shell
-%% see http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
-%% journal paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/pkg/ieeetran
-%% and
-%% http://www.ieee.org/
+\documentclass[conference]{IEEEtran}
 
-%%*************************************************************************
-%% Legal Notice:1
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
-%% User assumes all risk.
-%% In no event shall the IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%*************************************************************************
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. The IEEE's font choices and paper sizes can   ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
-% Please refer to your journal's instructions for other
-% options that should be set.
-\documentclass[journal,twocolumn]{IEEEtran}
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[journal]{../sty/IEEEtran}
-
-
-
-
-
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/pkg/ifpdf
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
-
+\usepackage{amsmath}
+\usepackage{algorithmic}
+\usepackage{cite}
+\usepackage{booktabs}
+\usepackage{comment}
 
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \pgfplotsset{compat=1.17}
 
-\usepackage{booktabs}
-
-\usepackage{comment}
-
 \usepackage{xcolor}
-
 \definecolor{redbullet}{RGB}{234,67,53}
 \definecolor{bluebullet}{RGB}{66,133,244}
 \definecolor{yellowbullet}{RGB}{251,188,4}
 \definecolor{greenbullet}{RGB}{52,168,83}
 
-% *** CITATION PACKAGES ***
-%
-%\usepackage{cite}
-% cite.sty was written by Donald Arseneau
-% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of the IEEE. Loading the cite package will
-% result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
-% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
-% noadjust option (cite.sty V3.8 and later) if you want to turn this off
-% such as if a citation ever needs to be enclosed in parenthesis.
-% cite.sty is already installed on most LaTeX systems. Be sure and use
-% version 5.0 (2009-03-20) and later if using hyperref.sty.
-% The latest version can be obtained at:
-% http://www.ctan.org/pkg/cite
-% The documentation is contained in the cite.sty file itself.
-
-
-
-
-
-
-% *** GRAPHICS RELATED PACKAGES ***
-%
-\ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
-\else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
-\fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
-% http://www.ctan.org/pkg/graphicx
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found at:
-% http://www.ctan.org/pkg/epslatex
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
-
-
-
-
-
-% *** MATH PACKAGES ***
-%
-\usepackage{amsmath}
-% A popular package from the American Mathematical Society that provides
-% many useful and powerful commands for dealing with mathematics.
-%
-% Note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/amsmath
-
-
-
-
-
-% *** SPECIALIZED LIST PACKAGES ***
-%
-\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/pkg/algorithms
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/pkg/algorithmicx
-
-
-
-
-% *** ALIGNMENT PACKAGES ***
-%
-%\usepackage{array}
-% Frank Mittelbach's and David Carlisle's array.sty patches and improves
-% the standard LaTeX2e array and tabular environments to provide better
-% appearance and additional user controls. As the default LaTeX2e table
-% generation code is lacking to the point of almost being broken with
-% respect to the quality of the end results, all users are strongly
-% advised to use an enhanced (at the very least that provided by array.sty)
-% set of table tools. array.sty is already installed on most systems. The
-% latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/array
-
-
-% IEEEtran contains the IEEEeqnarray family of commands that can be used to
-% generate multiline equations as well as matrices, tables, etc., of high
-% quality.
-
-
-
-
-% *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
-% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
-% for subfigure.sty, the latter of which is no longer maintained and is
-% incompatible with some LaTeX packages including fixltx2e. However,
-% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
-% which will override IEEEtran.cls' handling of captions and this will result
-% in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's "caption=false" package option (available since
-% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
-% handling of captions.
-% Note that the Computer Society format requires a larger sans serif font
-% than the serif footnote size font used in traditional IEEE formatting
-% and thus the need to invoke different subfig.sty package options depending
-% on whether compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/pkg/subfig
-
-
-
-
-% *** FLOAT PACKAGES ***
-%
-%\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
-% figure.
-% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
-% corrections already built into the system in which case a warning will
-% be issued if an attempt is made to load fixltx2e.sty as it is no longer
-% needed.
-% The latest version and documentation can be found at:
-% http://www.ctan.org/pkg/fixltx2e
-
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/stfloats
-% Do not use the stfloats baselinefloat ability as the IEEE does not allow
-% \baselineskip to stretch. Authors submitting work to the IEEE should note
-% that the IEEE rarely uses double column equations and that authors should try
-% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
-% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
-% such ways.
-% Do not attempt to use stfloats with fixltx2e as they are incompatible.
-% Instead, use Morten Hogholm'a dblfloatfix which combines the features
-% of both fixltx2e and stfloats:
-%
-% \usepackage{dblfloatfix}
-% The latest version can be found at:
-% http://www.ctan.org/pkg/dblfloatfix
-
-
-
-
-%\ifCLASSOPTIONcaptionsoff
-%  \usepackage[nomarkers]{endfloat}
-% \let\MYoriglatexcaption\caption
-% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
-%\fi
-% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
-% Axel Sommerfeldt. This package may be useful when used in conjunction with 
-% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
-% submissions have lists of figures/tables at the end of the paper and that
-% figures/tables without any captions are placed on a page by themselves at
-% the end of the document. If needed, the draftcls IEEEtran class option or
-% \CLASSINPUTbaselinestretch interface can be used to increase the line
-% spacing as well. Be sure and use the nomarkers option of endfloat to
-% prevent endfloat from "marking" where the figures would have been placed
-% in the text. The two hack lines of code above are a slight modification of
-% that suggested by in the endfloat docs (section 8.4.1) to ensure that
-% the full captions always appear in the list of figures/tables - even if
-% the user used the short optional argument of \caption[]{}.
-% IEEE papers do not typically make use of \caption[]'s optional argument,
-% so this should not be an issue. A similar trick can be used to disable
-% captions of packages such as subfig.sty that lack options to turn off
-% the subcaptions:
-% For subfig.sty:
-% \let\MYorigsubfloat\subfloat
-% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
-% However, the above trick will not work if both optional arguments of
-% the \subfloat command are used. Furthermore, there needs to be a
-% description of each subfigure *somewhere* and endfloat does not add
-% subfigure captions to its list of figures. Thus, the best approach is to
-% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
-% and instead reference/explain all the subfigures within the main caption.
-% The latest version of endfloat.sty and its documentation can obtained at:
-% http://www.ctan.org/pkg/endfloat
-%
-% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
-% later in the document, say, to conditionally put the References on a 
-% page by themselves.
-
-
-
-
-% *** PDF, URL AND HYPERLINK PACKAGES ***
-%
-%\usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/url
-% Basically, \url{my_url_here}.
-
-
-
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
-
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
-
 
 \begin{document}
 
 \title{Application of Correlation Coefficients to Measurements of Decentralization}
 
-\author{\IEEEauthorblockN{Simon Brown}
-\IEEEauthorblockA{\textit{ConsenSys Software Inc.}\\
-simon.brown@consensys.net}
+\author{
+  \IEEEauthorblockN{Simon Brown}
+  \IEEEauthorblockA{\textit{ConsenSys Software Inc.}\\
+  simon.brown@consensys.net}
+  \and
+  \IEEEauthorblockN{Leonardo Bautista-Gomez}
+  \IEEEauthorblockA{\textit{Miga Labs}\\
+  leobago@protonmail.com}
 }
+
 % make the title area
 \maketitle
 
@@ -618,14 +285,14 @@ Our analysis first examines the level of variability in the clients and relayers
 
 \subsubsection{Correlation of variability across attributes for Node Operators}
 
-The following table presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to node operators. As can be seen from the results below, there is strong correlation between variability between market share of the node operator and the relayers used.  This suggests that as market share increases, so does the variability in the number of relayers used.  This indicates that the larger node operators prefer to use a broader range of relayers, but also indicates that there may be some variability in the number of blocks retrieved from those relayers.
+The following table presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to node operators. As can be seen from the results below, there is strong correlation between the market share of the node operator and the variability in the distribution of relays they have procured blocks from. This is likely explained by the observation that larger node operators tend to connect to more relayers then smaller operators and solo stakers, who tend to connect to only one or a small set of relayers.
 
 \begin{table}[htbp]
     \centering
     \normalsize
-    \begin{tabular}{p{4.5cm}r}
+    \begin{tabular}{p{3.9cm}r}
         \toprule
-        Pairwise Comparison & Strength of Association \\
+        Pairwise Comparison & Strength of Correlation ($R^2$) \\
         \midrule
         Market Share vs. Clients & 0.16 \\
         Market Share vs. Relayers & 0.37 \\
@@ -636,7 +303,7 @@ The following table presents the $R^2$ values for comparison of variability betw
 
 \subsubsection{Correlation of variability across attributes for Staking Pools}
 
-The following presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to staking pools.  As can be seen from \ref{tab:r2-value-staking-pools}, the only value of any significance the $R^2$ value for Relays vs Clients.  This indicates a strong correlation between the variability in consensus clients that are used by a staking pool, and the variability in the relays that they are using.  This would suggest that staking pools that employ node operators with a higher level client of diversity also connect to multiple relayers.  While it is not surprising that staking pools with a larger market share may have multiple node operators with varying policies, the results do not show a high correlation between market share and clients or relays, \textbf{indicating that the size of the staking pool does not necessarily correlate with their policies around client diversity relayer diversity.}
+The following presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to staking pools.  As can be seen from table \ref{tab:r2-value-staking-pools}, the only value of any significance is the $R^2$ value for Relays vs Clients.  This indicates a strong correlation between the variability in consensus clients that are used by a staking pool, and the variability in the relays that they are using.  This would suggest that staking pools that employ node operators with a higher level client of diversity also connect to multiple relayers.  While it is not surprising that staking pools with a larger market share may have multiple node operators, the results do not show a high correlation between market share and clients or relays, \textbf{indicating that the size of the staking pool does not necessarily correlate with their policies around client diversity or relayer diversity.}
 
 \begin{table}[htbp]
     \centering
@@ -662,11 +329,13 @@ The following presents the $R^2$ values for comparison of variability between at
 
 \subsubsection{Herfindahl–Hirschman Indices for Node Operators}
 
-In observing the difference between the standard HHI index and the modified HHI index for node operators, we see a significant difference.  The \textbf{standard HHI yields a value of 66}, indicating a highly unconcentrated market of node operators.  This would suggest a very healthy level of diffusion within the node operator set, and is representative of a dataset of 2,496 records with only 22 operators that have a market share of above 1\%, and only 4 that have a market share between 2\% and 4\%.  However, \textbf{the modified HHI yields a value of 1,223}, which is approaching the 1,500 threshold for moderate market concentration.  This value more accurately represents the fact that most relayers are using the same clients and relayers.  Given that there are only 6 consensus clients and 5 relayers with any significant market share, it is not surprising that we see this results in a population of 2,496 node operators.
+In observing the difference between the standard HHI index and the modified HHI index for node operators, we see a significant difference.  The \textbf{standard HHI yields a value of 66}, indicating a highly unconcentrated market of node operators.  This would suggest a very healthy level of diffusion within the node operator set, and is representative of a dataset of 2,496 records with only 22 operators that have a market share of above 1\%, and only 4 that have a market share between 2\% and 4\%.  However, \textbf{the modified HHI yields a value of 1,223}, which is approaching the 1,500 threshold for moderate market concentration.
+
+This value more accurately represents the fact that most relayers are using the same clients and relayers.  Given that there are only 6 consensus clients and 5 relayers with any significant market share, it is not surprising that we see this results in a population of 2,496 node operators.
 
 \subsubsection{Herfindahl–Hirschman Indices for Staking Pools}
 
-In observing the difference between the standard HHI index and the modified HHI index for node operators, we see a notable difference.  The \textbf{standard HHI for staking pools yields a value of 1,135}, indicating a low-to-moderate level of market concentration.  The \textbf{modified HHI yields a value of 3,283}, almost 3 times greater than the standard HHI, and which indicates a high level of market concentration, due to the respective percentages of various clients, relayers and node operators that the staking pools have in common. Our analysis identified 13 unique staking pools, using 6 unique clients, and relayers respectively.  It is worth noting however, that a direct comparison between the standard HHI and modified HHI can be misguiding.  The modified HHI should be based against some benchmark that is established over time, or a defined heuristic baseline.
+In observing the difference between the standard HHI index and the modified HHI index for node operators, we see a notable difference.  The standard HHI for staking pools yields a value of \textbf{1,135}, indicating a low-to-moderate level of market concentration.  The modified HHI yields a value of \textbf{3,283}, almost 3 times greater than the standard HHI, and which indicates a higher level of market concentration due to the respective percentages of various clients, relayers and node operators that the staking pools have in common.  Our analysis identified 13 unique staking pools, using 6 unique clients and relayers respectively.
 
 \subsection{Analysis of Individual Nodes}
 
@@ -712,7 +381,9 @@ The values above are transcribed to be more more readable format below.  The str
     \end{tabular}
 \end{table}
 
-As is expected, there is a strong correlation between the country of operation and the ISP used.  This is exactly what we would expect to see given that most ISPs only serve their domestic market.  There is a moderation correlation between ISP used and the number of attestation subnets advertised.  As ISPs in this context also include public cloud providers, this correlation may suggest that nodes advertising multiple attestation subnets, i.e. nodes that likely have multiple validators attached, are usually using the same public cloud provider, e.g. AWS, Azure etc.
+As is expected, there is a strong correlation between the country of operation and the ISP used.  This is exactly what we would expect to see given that most ISPs only serve their domestic market.
+
+There is also a moderate level of correlation between ISP used and the number of attestation subnets advertised.  As ISPs in this context also include public cloud providers, this correlation may suggest that nodes advertising multiple attestation subnets, i.e. nodes that likely have multiple validators attached, are often using the same public cloud provider, e.g. AWS, Azure etc.  This broadly agrees with data from Rated Network and Chainbound.
 
 \vspace{12pt}
 
@@ -753,13 +424,13 @@ As is expected, there is a strong correlation between the country of operation a
     \label{fig:relative-level-of-correlation-between-attributes}
 \end{figure}
 
-An interesting observation from the results shown in \ref{fig:relative-level-of-correlation-between-attributes} is that there is a relatively low correlation between the country that nodes are based in and the number of attestation subnets that they advertise.  It is widely acknowledged that there is  strong concentration of nodes in the US and EU geographical regions, this low correlation would indicate that nodes that have multiple validators attached to them, and therefore likely to be operated by node operators serving staking pools, may be more geographically distributed.  This hypotheses will require further research however.
+An interesting observation from the results shown in figure \ref{fig:relative-level-of-correlation-between-attributes} is that there is a relatively low correlation between the country that nodes are based in and the number of attestation subnets that they advertise.  It is widely acknowledged that there is  strong concentration of nodes in the US and EU geographical regions, this low correlation would indicate that nodes that have multiple validators attached to them, and therefore likely to be operated by node operators serving staking pools, may be more geographically distributed.  This hypotheses will require further research however.
 
 \subsection{Correlation between node operator market share and clients and relayers}
 
-The scatter plot in figure \ref{fig:average_client_percentage_by_percentile} show the correlation between the market share of node operators and the average percentage of each client that node operators in the respective market share percentile use.  The 6 main consensus clients are listed in the legend below the chart.  The results displayed in the chart roughly align with the market share of the various clients, and don't reveal any strong correlation to the respective market share of node operators.
+The scatter plot in figure \ref{fig:average_client_percentage_by_percentile} show the correlation between the market share of node operators in Dataset A, and the average percentage of each client that node operators in the respective market share percentile use.  The 6 main consensus clients are listed in the legend below the chart.  The results displayed in the chart roughly align with the market share of the various clients, and don't reveal any strong correlation to the respective market share of node operators.
 
-The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} show the correlation between the market share of node operators and the average percentage of each relayer that node operators in the respective market share percentile use. Again, the results broadly align with the market share of various relayers, and don't reveal any strong correlation.
+The data below broadly agrees with the consensus client distribution, which has Prysm and Lighthouse clients at approximately 30\% 40\%, with other clients having lower shares.
 
 \begin{figure}[htbp]
   \centering
@@ -798,7 +469,6 @@ The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} sh
 \end{figure}
 
 An interesting exercise for future work is to apply the same analysis to staking pools instead of node operators, measuring any correlation between their market share and the clients and relayers they use.
-Another interesting measurement would involve looking at data from dataset B, including geographical region, and public cloud provider.  This analysis is not currently possible with the data currently available.
 
 \begin{figure}[htbp]
   \centering
@@ -806,7 +476,7 @@ Another interesting measurement would involve looking at data from dataset B, in
     \begin{axis}[
       only marks,
       xlabel={Percentile of Network Penetration},
-      ylabel={Percentage Client Use},
+      ylabel={Percentage Relayer Use},
       symbolic x coords={0, 1, 2, 3},
       xtick=data,
       xmajorgrids=true,
@@ -832,13 +502,18 @@ Another interesting measurement would involve looking at data from dataset B, in
 
     \end{axis}
   \end{tikzpicture}
-  \caption{Average Relayer Percentage by Percentile}
+  \caption{Average Relayer Percentage by Node Operator Market Sahre}
   \label{fig:average_relayer_percentage_by_percentile}
 \end{figure}
 
+The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} show the correlation between the market share of node operators and the average percentage of each relayer that node operators in the respective market share percentile use.
+Again, the results broadly align with the market share of various relayers, and don't reveal any strong correlation, which corresponds the the $R^2$ value of 0.16 that we observed in earlier analysis.
+
 \subsection{Ranking the level of correlation between attributes}
 
-Our analysis attempts to rank the level of correlation between the various attributes in dataset B, pertaining to individual nodes on the network.  The results are visualized in figure \ref{fig:attribute-correlation-ranking}, as a scatter-plot chart.  The y-axis represents the count of occurrences of the value for each attribute for each record and the x-axis represents the sum of all counts for each attribute for each record.  This process is explained in detail in section III, subsection F.
+Our analysis attempts to rank the level of correlation between the various attributes in dataset B, pertaining to individual nodes on the network.  The results are visualized in figure \ref{fig:attribute-correlation-ranking}, as a scatter-plot chart.
+
+Each node is displayed along the horizontal axis, and is ranked by sum of all value counts for all attributes for that record, with values to the right showing highers sums.  Each node has four vertically aligned markers which correspond to the four attributes of country, client, ISP, and subnets.  Each marker represents the number of times the value for that attribute occurred in the dataset.  Each axis is measure in the thousands.
 
 \vspace{6pt}
 
@@ -853,15 +528,18 @@ Our analysis attempts to rank the level of correlation between the various attri
     \label{fig:attribute-correlation-ranking}
 \end{figure}
 
-As can be seen from the scatter-plot in figure \ref{fig:attribute-correlation-ranking}, the attributes that show the greatest levels of correlation can be found in the top-right hand of the chart.  These attributes are client, country and subnets.
+As can be seen from the scatter-plot in figure \ref{fig:attribute-correlation-ranking}, the attributes that show the greatest levels of correlation can be found in the middle of the vertical axis, between the 10 and 20, and the attributes with the highest value-occurrence count are client, country, and subnets.
 
 While we would expect to see a high level of correlation between nodes with reference to clients, largely due to the fact that there are only 6 clients in a population of 1,884 nodes, the fact that there is also a high level of correlation among the country and subnets fields may be significant.
 
-The subnets field relates the number of attestation subnets that each node advertises.  Nodes by default advertise 2 attestation subnets, and this dataset filters out these nodes, leaving only the nodes that advertise 3 or more subnets.  An increase in the level of attestation subnets that a node advertises is presumed to indicate that the node in question is a validator node.
+The subnets field relates the number of attestation subnets that each node advertises.  Nodes by default advertise 2 attestation subnets, but this Dataset B does not include these nodes, leaving only the nodes that advertise 3 or more subnets.  An increase in the level of attestation subnets that a node advertises is presumed to indicate that the node in question is a validator node.
 
-The high level of correlation in both the country field and advertised subnets field may indicate that there is a concentration in terms of geographical location of validator nodes.  This corresponds broadly with the observed geographical centralization in network nodes in general.
+The high level of correlation in both the country field and advertised subnets field may indicate that there is a concentration in terms of geographical location of validator nodes.  This corresponds broadly with the observed geographical centralization in network nodes in general for both client and execution nodes.
 
 \section{Conclusion}
+
+It is worth noting, that a direct comparison between the standard HHI and modified HHI can be misguiding.  The modified HHI should be based against some benchmark that is established over time, or a defined heuristic baseline, the comparison to the standard HHI is a reasonable starting point.
+
 
 \section{Future Work}
 
