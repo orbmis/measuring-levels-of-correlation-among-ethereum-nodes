@@ -66,7 +66,7 @@ This paper is organized as follows: in section II we discuss the background and 
 
 Ethereum currently has over 916,000 validators \cite{beaconchain2024} attached to approximately 5,000 to 6,000 nodes [CITE - Miga Labs], out of a total of approximately 14,000 nodes across the entire network \cite{nodewatch2024}.
 
-Many validator clients are controlled by staking pools, with only about 25\% of the validator set being independent solo stakers \cite{dune2024}.  Several staking pools have garnered a relatively large market share, including Lido and Coinbase, who employ a number of different node operators to run nodes on the network, to which validators are attached.  Node operators can attached any number of validators to the nodes they run, and can employ any combination of execution client and consensus client, of which there are approximately 6 widely adopted clients of each available.
+Many validator clients are controlled by staking pools, with only about 25\% of the validator set being independent solo stakers \cite{dune2024}.  Several staking pools have garnered a relatively large market share, some who employ a number of different node operators to run nodes on the network, to which validators are attached.  Node operators can attached any number of validators to the nodes they run, and can employ any combination of execution client and consensus client, of which there are approximately 6 widely adopted clients of each available.
 
 Furthermore, node operators may choose to connect to independent, third-party block builders to source the blocks that the validators attached to their nodes propose to the network. Nodes connect to builders via relayers in the mev-boost system.  Relayers are run by other independent providers and provide a quasi-escrow service for block builders and validators to negotiate payment and delivery for blocks.
 
@@ -222,7 +222,7 @@ E_{ij} = \frac{(\text{row sum})(\text{column sum})}{\text{total number of nodes}
 
 \subsubsection{Calculating Cramers-V value between attributes}
 
-We also calculate the Cramers-V value for each pairwise as a complimentary measurement to the result of both the Chi-squared value and p-value of each pairwise comparison of attributes.  While taking a single measurement in isolation can give us unreliable results, a combination of measurements can give us more confidence in the results where they broadly align.
+We also calculate the Cramers-V value \cite{akoglu2018user} for each pairwise as a complimentary measurement to the result of both the Chi-squared value and p-value of each pairwise comparison of attributes.  While taking a single measurement in isolation can give us unreliable results, a combination of measurements can give us more confidence in the results where they broadly align.
 
 Cramer's V is calculated using the following formula:
 
@@ -293,7 +293,7 @@ Our analysis first examines the level of variability in the clients and relayers
 
 \subsubsection{Correlation of variability across attributes for Node Operators}
 
-The following table presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to node operators. As can be seen from the results below, there is strong correlation between the market share of the node operator and the variability in the distribution of relays they have procured blocks from. This is likely explained by the observation that larger node operators tend to connect to more relayers then smaller operators and solo stakers, who tend to connect to only one or a small set of relayers.
+The following table presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to node operators. As can be seen from the results below, there is strong correlation between the market share of the node operator and the variability in the distribution of relays they have procured blocks from. This is likely explained by the observation that larger node operators tend to connect to more relayers then smaller operators and solo stakers, who tend to connect to only one or a small set of relayers.  However, this observation may be partially explained by the fact solo stakers propose blocks relatively infrequently, and may have proposed only one or two blocks within the sample period, and this may be represented in the data in terms of which relayers they won those blocks from.  In this context they may have connected to multiple relayers, but only proposed blocks that were sourced from one or two relayers.
 
 \begin{table}[htbp]
     \centering
@@ -372,7 +372,6 @@ We present the results of analysing the correlation between individual nodes on 
     \label{tab:pairwise-comparisons}
 \end{table}
 
-\begin{comment}
 The values above are transcribed to be in more readable format below.  The strength of association is based on the Chi-Squared value.
 
 \begin{table}[htbp]
@@ -391,13 +390,10 @@ The values above are transcribed to be in more readable format below.  The stren
         \bottomrule
     \end{tabular}
 \end{table}
-\end{comment}
 
 As is expected, there is a strong correlation between the country of operation and the ISP used.  This is exactly what we would expect to see given that most ISPs only serve their domestic market.
 
 There is also a moderate level of correlation between the ISP used and the number of attestation subnets advertised.  As ISPs in this context also include public cloud providers, this correlation may suggest that nodes advertising multiple attestation subnets, i.e. nodes that likely have multiple validators attached, are often using the same public cloud provider, e.g. AWS, Azure etc.
-
-\vspace{12pt}
 
 \begin{figure}[htbp]
     \centering
@@ -488,7 +484,7 @@ The data below broadly agrees with the consensus client distribution, which has 
 
 \subsubsection{Operator market share and relayers used}
 
-The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} shows the correlation between the market share of node operators and the average percentage of each relayer that node operators in the respective market share percentile use.  As can be observed from the chart, there is an increase in variability as the market share / size of the node operator increases.  This is in line with previous analysis that showed an $R^2$ value of 0.37 for Market Share vs. Relayers.  \textcolor{red}{TODO: what is the ratio of number of relayers to market share?}
+The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} shows the correlation between the market share of node operators and the average percentage of each relayer that node operators in the respective market share percentile use.  As can be observed from the chart, there is an increase in variability as the market share / size of the node operator increases.  This is in line with previous analysis that showed an $R^2$ value of 0.37 for Market Share vs. Relayers.
 
 \begin{figure}[htbp]
   \centering
@@ -530,8 +526,6 @@ The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} sh
 
 Our analysis attempts to rank the level of correlation between the various attributes in dataset B, pertaining to individual nodes on the network.  The results are visualized in figure \ref{fig:attribute-correlation-ranking}, as a scatter-plot chart.
 
-Each node is displayed along the horizontal axis, and is ranked by sum of all value counts for all attributes for that record, with values to the right showing highers sums.  Each node has four vertically aligned markers which correspond to the four attributes of country, client, ISP, and subnets.  Each marker represents the number of times the value for that attribute occurred in the dataset.  Each axis is measure in the thousands.
-
 \vspace{6pt}
 
 \begin{figure}[htbp]
@@ -544,6 +538,8 @@ Each node is displayed along the horizontal axis, and is ranked by sum of all va
     \caption{Ranking the level of correlation between attributes}
     \label{fig:attribute-correlation-ranking}
 \end{figure}
+
+Each node is displayed along the horizontal axis, and is ranked by sum of all value counts for all attributes for that record, with values to the right showing highers sums.  Each node has four vertically aligned markers which correspond to the four attributes of country, client, ISP, and subnets.  Each marker represents the number of times the value for that attribute occurred in the dataset.  Each axis is measure in the thousands.
 
 As can be seen from the scatter-plot in figure \ref{fig:attribute-correlation-ranking}, the attributes that show the greatest levels of correlation can be found in the middle of the horizontal axis, between the 10K and 20K, and the attributes with the highest value-occurrence count are client, country, and subnets.
 
@@ -569,7 +565,7 @@ In summary, it would appear that is both a slightly lower degree of client diver
 
 \section{Conclusion}
 
-Observing the percentage breakdown of certain aspects of the node distribution within the network can reveal important insights.  The insights include any unequal distribution of client software used by nodes, or unequal distribution of geographical region of operation.  Both concerns may have implications for the health of the network.  However, by looking at the level of correlation between staking pools and node operators on the network, we can reveal useful clues as to where the drivers of any concentration occurs.  For example, observed trends from our result suggest that larger node operators are potential driving a concentration in certain areas.
+Observing the percentage breakdown of certain aspects of the node distribution within the network can reveal important insights.  The insights include any unequal distribution of client software used by nodes, or unequal distribution of geographical region of operation.  Both concerns may have implications for the health of the network.  However, by looking at the level of correlation between staking pools and node operators on the network, we can reveal useful clues as to where the drivers of any concentration occurs.  For example, observed trends from our results suggest that larger node operators are potential driving a concentration in certain areas, though to a degree that is not concerning, as indicated by a modified HHI value of 0.
 
 Further to identifying potential drivers of concentration through looking at patterns of correlation, there is also a benefit in developing a standardized index for the measurement of decentralization.  While it can be useful to look at individual aspects of a network, such as geographical distribution of nodes, distribution of nodes by public cloud provider, distribution of client software used etc., it can be a challenge to agree on the overall effect level of decentralization when these various measurements are combined.  This can be all the more challenge when attempting the measure any changes in the overall effective level of decentralization over time.  Similar challenges in traditional economic sectors led to the development of economic indices such as the Gini Index and Herfindahl–Hirschman Index.  For the same reason, it is useful to have a standard index that can be applied to cryptocurrency networks to derive a high-level, comparative measurement.
 
