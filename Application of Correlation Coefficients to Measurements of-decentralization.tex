@@ -120,7 +120,25 @@ Each dataset contains a discrete set of attributes, which we analyze for pattern
             \end{itemize}
 \end{itemize}
 
-\leo{In order to produce datasets B and C, MigaLabs has developed a network crawler that is constantly connecting to beacon nodes in the p2p network and keeping track of their metadata, which they share as part of the initial handshake. Beacon nodes share information about the number of the attestation network they are interested in, their connection addresses (IPv4, IPv6, ports, etc) and sometimes the consensus client they use. Then, using external APIs, MigaLabs obtains country and ISP information for each beacon node, as this is easily obtainable once you have the IP address of the node. However, beacon nodes do not advertise which validators run behind a node. Knowing which specific operator runs a node, could open attack vectors (e.g., DoS) that could affect the stability of the network. However, there exist some techniques, such as network message triangulation that could, in theory, allow one attacker to have a good vision of how many validators are run behind a node. These techniques are costly to run and are out of the scope of this paper. }
+\leo{In order to produce datasets B and C, MigaLabs has developed a network crawler that is constantly connecting to beacon nodes in the p2p network and keeping track of their metadata, which they share as part of the initial handshake. Beacon nodes share information about the attestation networks they are interested in, their connection addresses (IPv4, IPv6, ports, etc.), and sometimes the consensus client they use. Then, using external APIs, we obtain country and ISP information for each beacon node, as this is easily obtainable once you have the IP address of the node. Beacon nodes do not advertise which validators they run. Knowing which specific operator runs a node could open attack vectors (e.g., DoS) that could affect the stability of the network. The attestation networks a node is interested in can be taken as an indicator of the number of validators running behind the node. We see in Figure~\ref{fig:attesnets} the distribution of attesnet subscriptions at the time Dataset B snapshot was taken. We see almost 5K nodes with zero attesnet, which are likely to be nodes without validators behind. Then, we see thousands of nodes with a small number of attesnets, which are likely to be solo-stakers. Then, on the right side of the figure, we see nodes registered to 64 attesnets, the maximum nodes can register to. For nodes following all 64 attestation networks, it becomes hard to know whether they are running 64 or a thousand validators. To solve this issue, we extrapolate from the number of validators observed in Dataset C. }
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/attesnets.png}
+    \caption{Attesnet Distribution Dataset B}
+    \label{fig:attesnets}
+\end{figure}
+
+\leo{There are several ways to know the number of validators running behind a set of nodes. The most obvious one is to ask. Large staking pools (e.g., Lido) might ask their node operators to report on this type of infrastructure choice. Also, there exist some techniques, such as network message triangulation, that could allow a set of nodes to have a good vision of how many validators are run behind a node. These techniques are costly to run, and it is extremely difficult to get a detailed vision of the entire network. Nonetheless, they can be used to extract partial knowledge of a small number of nodes in the network. There are also some network players (e.g., relays) that have direct communication with validators, allowing them to see a bit beyond what other nodes can see. Message triangulation and other techniques to extract data from the network are out of the scope of this paper. Having the number of validators behind the nodes of dataset C, allows us to extrapolate a possible distribution of validators in dataset B.}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/dist77.png}
+    \caption{Validator Count Distribution Dataset C}
+    \label{fig:datac}
+\end{figure}
+
+\leo{Figure~\ref{fig:datac} shows in red the observed distribution of the number of validators in the 77 nodes of dataset C. The blue bars represent a flat distribution if one wanted to distribute the same number of validators across all nodes equally. From here, we take the red distribution observed in the 77 nodes of Dataset C, and extrapolate it to the ~1K nodes with 64 attesnet subscriptions of Dataset B, by assigning a random number of validators to each one of those nodes in such a way that it emulates the same distribution. We choose a random assignment to avoid bias towards one parameter or another. And to further reduce the chances of adding biased artefacts, we generate multiple random distributions for dataset B. With this, our enhanced Dataset B has the same number of validators (i.e., ~666K validators) that the network had at the time of Dataset B snapshot.}
 
 \section{Methodology}
 \label{sec:methodology}
