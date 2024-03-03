@@ -51,7 +51,7 @@ sorting=none
 \maketitle
 
 \begin{abstract}
-There have been several studies into measuring the level of decentralization in Ethereum through applying various indices to indicate relative dominance of entities in different domains in the ecosystem.  However, these indices do not capture any correlation between those different entities, that could potentially make them the subject of external coercion, or covert collusion.  We propose an adapted index that adjusts the relative dominance of entities based on the application of correlation factors.  We posit that this approach produces a more nuanced and accurate index of decentralization.
+There have been several studies into measuring the level of decentralization in Ethereum through applying various indices to indicate the relative dominance of entities in different domains in the ecosystem.  However, these indices do not capture any correlation between those different entities, that could potentially make them the subject of external coercion, or covert collusion.  We propose an  index that measures the relative dominance of entities based on the application of correlation factors.  We posit that this approach produces a more nuanced and accurate index of decentralization.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -61,20 +61,20 @@ blockchain, Ethereum, decentralization, cryptocurrency, cryptoeconomics
 
 \section{Introduction}
 
-There have been several attempts to model a heuristic to measure the level of decentralization in the Ethereum ecosystem, that have relied on various techniques and indices that have been borrowed from the fields of economics and ecology \cite{wu2020coefficient} \cite{gupta2018gini} \cite{gochhayat2020measuring} \cite{lee2021dq}.  These include indices such as the Gini index and the Herfindahl–Hirschman Index \leo{(HHI)}, as well as several indices that are derived from the measurement of entropy \cite{brown2023measuring}.  When used in combination, these measurements reveal useful insights into the relative market share and/or share of resources of various entities, which can indicate the areas of concentration or diffusion of control and influence in the ecosystem.
+There have been several attempts to model a heuristic to measure the level of decentralization in the Ethereum ecosystem, that have relied on various techniques and indices that have been borrowed from the fields of economics and ecology \cite{wu2020coefficient} \cite{gupta2018gini} \cite{gochhayat2020measuring} \cite{lee2021dq}.  These include indices such as the Gini index and the Herfindahl–Hirschman Index (HHI), as well as several indices that are derived from the measurement of entropy \cite{brown2023measuring}.  When used in combination, these measurements reveal useful insights into the relative market share and/or share of resources of various entities, which can indicate the areas of concentration or diffusion of control and influence in the ecosystem.
 
-While these measurements can prove useful in measuring decentralization at a high level, they fail to capture the nuance in the correlation between various entities within the ecosystem, which can lead to subtle implicit collusion and/or potential coercion by external actors.  We therefore propose a model that seeks to capture the level of correlation between entities in the ecosystem across a number of dimensions, and present our findings from applying the model to available network data.  We demonstrate how the level of correlation between independent entities can reduce the effective level of decentralization in certain cases, while increasing the effective level of decentralization \leo{in} other cases.
+While these measurements can prove useful in measuring decentralization at a high level, they fail to capture the nuance in the correlation between various entities within the ecosystem, which can potentially lead to subtle implicit collusion and/or potential coercion by external actors.  We therefore propose a model that seeks to capture the level of correlation between entities in the ecosystem across a number of dimensions, and present our findings from applying the model to available network data.  We demonstrate how the level of correlation between independent entities can reduce the effective level of decentralization in certain cases, while increasing the effective level of decentralization in other cases.
 
-This paper is organized as follows: in section~\ref{ sec:background}, we discuss the background for this research; in section~\ref{sec:motivation}, we describe the motivation for this work. The data used for this work is presented in section~\ref{sec:data}. Our methodology and the various calculations used in our model are presented in section~\ref{sec:methodology}.  In section~\ref{sec:results}, we outline the results of applying our model to the underlying datasets. We summarize the results and learnings in section~\ref{sec:discussion}, and finally discuss future work and areas for further research in section~\ref{sec:conclusion}.
+This paper is organized as follows: in section~\ref{sec:background}, we discuss the background for this research; in section~\ref{sec:motivation}, we describe the motivation for this work. The data used for this work is presented in section~\ref{sec:data}. Our methodology and the various calculations used in our model are presented in section~\ref{sec:methodology}.  In section~\ref{sec:results}, we outline the results of applying our model to the underlying datasets. We summarize the results and learnings in section~\ref{sec:discussion}, and finally discuss future work and areas for further research in section~\ref{sec:conclusion}.
 
 \section{Background}
-\label{ sec:background}
+\label{sec:background}
 
 Ethereum currently has over 916,000 validators \cite{beaconchain2024} attached to approximately 5,000 to 6,000 nodes [CITE - MigaLabs], out of a total of approximately 12,000 nodes across the entire network \cite{nodewatch2024}.
 
-Many validator clients are controlled by staking pools, with only about 25\% of the validator set being independent solo stakers \cite{dune2024}.  Several staking pools have garnered a relatively large market share, some of which employ a number of different node operators to run nodes on the network, to which validators are attached.  Node operators can attach any number of validators to the nodes they run, and can employ any combination of execution client and consensus client, of which there are approximately 6 widely adopted clients of each available.
+Many validator clients are controlled by staking pools, with only about 25\% of the validator set being independent solo stakers \cite{dune2024}.  Several staking pools have garnered a relatively large market share, and some employ a number of different node operators to run nodes on the network, to which validators are attached.  Node operators can attach any number of validators to the nodes they run, and can employ any combination of execution client and consensus client, of which there are approximately 6 widely adopted clients of each available.
 
-Furthermore, node operators may choose to connect to independent, third-party block builders to source the blocks that the validators attached to their nodes propose to the network. Nodes connect to builders via relayers in the mev-boost system.  Relayers \leo{can be} run by independent providers \leo{or by the same institutions offering MEV through block builders. Relayers} provide a quasi-escrow service for block builders and validators to negotiate payment and delivery for blocks.
+Furthermore, node operators may choose to connect to independent, third-party block builders to source the blocks that the validators attached to their nodes propose to the network. Nodes connect to builders via relayers in the mev-boost system.  Relayers can be run by independent providers or by the same institutions offering MEV through block builders. Relayers provide a quasi-escrow service for block builders and validators to negotiate payment and delivery for blocks.
 
 \section{Motivation}
 \label{sec:motivation}
@@ -86,12 +86,12 @@ An example of why the correlation between entities is important to measure is wh
 \section{Data Sources}
 \label{sec:data}
 
-Our study analyses \leo{three} discrete datasets from two independent sources:
+Our study analyses three discrete datasets from two independent sources:
 
 \begin{itemize}
-    \item Dataset A: sourced from rated.network, which pertains to node operators and staking pools, sourced on the 15th January 2024, and contains data from the preceding 30 days.
-    \item Dataset B: sourced from MigaLabs, and which contains data pertaining to individual \leo{beacon} on the network.  This dataset includes the number of attestation subnets each node advertises.
-    \item Dataset C: sourced from MigaLabs, and which contains data pertaining to individual \leo{beacon} nodes on the network, but with a smaller sample size, less than 500 records. This dataset contains the specific number of validators attached to each node.
+    \item Dataset A: sourced from rated.network \cite{ratednetwork2024}, which pertains to node operators and staking pools, sourced on the 15th January 2024, and contains data from the preceding 30 days.
+    \item Dataset B: sourced from MigaLabs, and which contains data pertaining to individual beacon nodes on the network.  This dataset includes the number of attestation subnets each node advertises.
+    \item Dataset C: sourced from MigaLabs, and which contains data pertaining to individual beacon nodes on the network, but with a smaller sample size, less than 500 records. This dataset contains the specific number of validators attached to each node.
 \end{itemize}
 
 Each dataset contains a discrete set of attributes, which we analyze for patterns of correlation.  The attributes that are analyzed in each dataset include:
@@ -107,20 +107,20 @@ Each dataset contains a discrete set of attributes, which we analyze for pattern
     \item \textbf{Dataset B} (Individual Nodes):
             \begin{itemize}
                 \item Country of Operation
-                \item \leo{Consensus} Client Software
+                \item Consensus Client Software
                 \item ISP / Datacenter
                 \item Number of advertised attestation subnets
             \end{itemize}
     \item \textbf{Dataset C} (Individual Nodes):
             \begin{itemize}
                 \item Country of Operation
-                \item \leo{Consensus} Client Software
+                \item Consensus Client Software
                 \item ISP / Datacenter
                 \item Number of validator clients
             \end{itemize}
 \end{itemize}
 
-\leo{In order to produce datasets B and C, MigaLabs has developed a network crawler that is constantly connecting to beacon nodes in the p2p network and keeping track of their metadata, which they share as part of the initial handshake. Beacon nodes share information about the attestation networks they are interested in, their connection addresses (IPv4, IPv6, ports, etc.), and sometimes the consensus client they use. Then, using external APIs, we obtain country and ISP information for each beacon node, as this is easily obtainable once you have the IP address of the node. Beacon nodes do not advertise which validators they run. Knowing which specific operator runs a node could open attack vectors (e.g., DoS) that could affect the stability of the network. The attestation networks a node is interested in can be taken as an indicator of the number of validators running behind the node. We see in Figure~\ref{fig:attesnets} the distribution of attesnet subscriptions at the time Dataset B snapshot was taken. We see almost 5K nodes with zero attesnet, which are likely to be nodes without validators behind. Then, we see thousands of nodes with a small number of attesnets, which are likely to be solo-stakers. Then, on the right side of the figure, we see nodes registered to 64 attesnets, the maximum nodes can register to. For nodes following all 64 attestation networks, it becomes hard to know whether they are running 64 or a thousand validators. To solve this issue, we extrapolate from the number of validators observed in Dataset C. }
+In order to produce datasets B and C, MigaLabs has developed a network crawler that is constantly connecting to beacon nodes in the p2p network and keeping track of their metadata, which they share as part of the initial handshake. Beacon nodes share information about the attestation networks they are interested in, their connection addresses (IPv4, IPv6, ports, etc.), and sometimes the consensus client they use. Then, using external APIs, they obtain country and ISP information for each beacon node, as this is easily obtainable once you have the IP address of the node. Beacon nodes do not advertise which validators they run. Knowing which specific operator runs a node could open attack vectors (e.g., DoS) that could affect the stability of the network. The attestation networks a node is interested in can be taken as an indicator of the number of validators running behind the node. We see in Figure~\ref{fig:attesnets} the distribution of attesnet subscriptions at the time Dataset B snapshot was taken. We see almost 5K nodes with zero attesnet, which are likely to be nodes without validators behind. Then, we see thousands of nodes with a small number of attesnets, which are likely to be solo-stakers. Then, on the right side of the figure, we see nodes registered to 64 attesnets, the maximum nodes can register to. For nodes following all 64 attestation networks, it becomes hard to know whether they are running 64 or a thousand validators. To solve this issue, we extrapolate from the number of validators observed in Dataset C.
 
 \begin{figure}
     \centering
@@ -129,7 +129,7 @@ Each dataset contains a discrete set of attributes, which we analyze for pattern
     \label{fig:attesnets}
 \end{figure}
 
-\leo{There are several ways to know the number of validators running behind a set of nodes. The most obvious one is to ask. Large staking pools (e.g., Lido) might ask their node operators to report on this type of infrastructure choice. Also, there exist some techniques, such as network message triangulation, that could allow a set of nodes to have a good vision of how many validators are run behind a node. These techniques are costly to run, and it is extremely difficult to get a detailed vision of the entire network. Nonetheless, they can be used to extract partial knowledge of a small number of nodes in the network. There are also some network players (e.g., relays) that have direct communication with validators, allowing them to see a bit beyond what other nodes can see. Message triangulation and other techniques to extract data from the network are out of the scope of this paper. Having the number of validators behind the nodes of dataset C, allows us to extrapolate a possible distribution of validators in dataset B.}
+There are several ways to know the number of validators running behind a set of nodes. The most obvious one is to ask. Large staking pools (e.g., Lido) might ask their node operators to report on this type of infrastructure choice. Also, there exist some techniques, such as network message triangulation, that could allow a set of nodes to have a good vision of how many validators are run behind a node. These techniques are costly to run, and it is extremely difficult to get a detailed vision of the entire network. Nonetheless, they can be used to extract partial knowledge of a small number of nodes in the network. There are also some network players (e.g., relays) that have direct communication with validators, allowing them to see a bit beyond what other nodes can see. Message triangulation and other techniques to extract data from the network are out of the scope of this paper. Having the number of validators behind the nodes of dataset C, allows us to extrapolate a possible distribution of validators in dataset B.
 
 \begin{figure}
     \centering
@@ -138,24 +138,25 @@ Each dataset contains a discrete set of attributes, which we analyze for pattern
     \label{fig:datac}
 \end{figure}
 
-\leo{Figure~\ref{fig:datac} shows in red the observed distribution of the number of validators in the 77 nodes of dataset C. The blue bars represent a flat distribution if one wanted to distribute the same number of validators across all nodes equally. From here, we take the red distribution observed in the 77 nodes of Dataset C, and extrapolate it to the ~1K nodes with 64 attesnet subscriptions of Dataset B, by assigning a random number of validators to each one of those nodes in such a way that it emulates the same distribution. We choose a random assignment to avoid bias towards one parameter or another. And to further reduce the chances of adding biased artefacts, we generate multiple random distributions for dataset B. With this, our enhanced Dataset B has the same number of validators (i.e., ~666K validators) that the network had at the time of Dataset B snapshot.}
+Figure~\ref{fig:datac} shows in red the observed distribution of the number of validators in the 77 nodes of dataset C. The blue bars represent a flat distribution if one wanted to distribute the same number of validators across all nodes equally. From here, we take the red distribution observed in the 77 nodes of Dataset C, and extrapolate it to the ~1K nodes with 64 attesnet subscriptions of Dataset B, by assigning a random number of validators to each one of those nodes in such a way that it emulates the same distribution. We choose a random assignment to avoid bias towards one parameter or another. And to further reduce the chances of adding biased artefacts, we generate multiple random distributions for dataset B. With this, our enhanced Dataset B has the same number of validators (i.e., ~666K validators) that the network had at the time of Dataset B snapshot.
 
 \section{Methodology}
 \label{sec:methodology}
 
 Our analysis applies several calculations to each dataset in order to attempt to identify any correlations between entities in the dataset across various attributes, and any correlations between specific attributes.
 
-We adapt the standard Herfindahl–Hirschman Index to account for potential correlations between staking pools, and we apply the same analysis to node operators.
+We describe a novel index calculation, based on the Herfindahl–Hirschman Index, but with an additional correlation factor, to account for potential correlations between staking pools and node operators in section~\ref{sec:modified-hhi}.
 
-We examine the level of correlation between variability in attributes in dataset A, in order to identify any correlation between a staking pool and the level of client diversity, or the range of node operators or relayers that are used by that staking pool.
+We examine the level of correlation between variability in attributes in dataset A in section~\ref{sec:correlation-between-variability-in-attributes}, in order to identify any correlation between a staking pool and the level of client diversity, or the range of node operators or relayers that are used by that staking pool.
 
-We attempt to calculate a correlation between the market share of node operators and the consensus clients they run, and relayers that they use, by mapping each percentile of market share to the total number of clients / relays used by staking pools and node operators in that percentile.
+We attempt to calculate a correlation between the market share of node operators and the consensus clients they run, and relayers that they use, by mapping each percentile of market share to the total number of clients / relays used by staking pools and node operators in that percentile in section~\ref{sec:correlation-between-operators-size-clients-and-relayers}.
 
-Our analysis also examines individual nodes on the network by calculating any correlation between individual nodes in dataset B using standard statistical measurements of correlation.  We also employ a novel approach for finding correlation between attributes.
+Our analysis also examines individual nodes on the network by calculating any correlation between individual nodes in dataset B using standard statistical measurements of correlation in section~\ref{sec:calculating-correlation-between-individual-nodes}.  We also employ a novel approach for finding correlation between attributes in section~\ref{sec:ranking-the-level-of-correlation-between-attributes}.
 
 \subsection{Standard Herfindahl–Hirschman Index}
+\label{sec:standard-hhi}
 
-Our model uses the Herfindahl–Hirschman Index as a basis for measuring the market concentration of staking pools and node operators.  The Herfindahl–Hirschman Index is a widely adopted economic index for measuring market concentration across a number of economic sectors \cite{OECD2021}.
+Our model uses the Herfindahl–Hirschman Index as a basis for measuring the market concentration of staking pools and node operators.  The Herfindahl–Hirschman Index (HHI) is a widely adopted economic index for measuring market concentration across a number of economic sectors \cite{OECD2021}.
 
 The HHI relies on market percentage shares, and is defined as the sum of the square of the percentage market share of each entity in a population.  It therefore results in a value close to 0 for a population in which each entity has a relatively equal share, but approaches $100^2$ in a population which is dominated by a relatively small number of entities.
 
@@ -168,6 +169,7 @@ HHI = \sum_{i} s_i^2
 \end{comment}
 
 \subsection{Modified Herfindahl–Hirschman Index}
+\label{sec:modified-hhi}
 This is calculated by summing the market share of every entity multiplied by the market share of every other entity and an additional correlation factor that indicates how correlated the respective entities are.  The correlation factor, $\rho_{ij}$, between entities $i$ and $j$, adjusts their respective market shares to account for their level of similarity across various attributes.
 
 \[
@@ -195,10 +197,11 @@ Each correlation factor that is calculated is only considered when it's value is
 We calculate and compare both the standard HHI and and the modified HHI for both staking pools and node operators.  In the case of node operators, the correlation factor only considers clients and relayers.
 
 \subsection{Calculating correlation between variability in attributes}
+\label{sec:correlation-between-variability-in-attributes}
 
 Our analysis attempts to measure any correlation between the level of variability in clients, relayers and node operators across staking pools. This is done to try to identify if there is a correlation between the size of a staking pool and the level of client diversity, or the range of node operators or relayers that are used.
 
-This is done by first calculating the coefficient of variance in the percentages of relayers, clients and node operators used by each staking pool. From this we obtain a matrix with a row for each staking pool, a column for market share, and columns for the coefficients of variation for clients, relayers and node operators.  We then calculate the $R^2$ value for each pairwise combination of columns to identify any potential correlation.
+This is achieved by first calculating the coefficient of variance in the percentages of relayers, clients and node operators used by each staking pool. From this we obtain a matrix with a row for each staking pool, a column for market share, and columns for the coefficients of variation for clients, relayers and node operators.  We then calculate the $R^2$ value for each pairwise combination of columns to identify any potential correlation.
 
 The coefficient of variation (CV) as a measure of relative variability is calculated as the ratio of the standard deviation ($\sigma$) to the mean ($\mu$) of a set of clients, relayers and node operators respectively, defined as:
 
@@ -212,21 +215,22 @@ r = \frac{\sum{(X_i - \bar{X})(Y_i - \bar{Y})}}{\sqrt{\sum{(X_i - \bar{X})^2}\su
 
 \vspace{3pt}
 
-Where $X_i$ and $Y_i$ are the individual data points of attributes $X$ and $Y$ and $\bar{X}$ and $\bar{Y}$ are the means of attributes $X$ and $Y$, respectively.  For each $r$ value, we square the result to obtain the coefficient of determination, $R^2$, which indicates any potential correlation between attributes.
+Where $X_i$ and $Y_i$ are the individual data points of attributes $X$ and $Y$, and $\bar{X}$ and $\bar{Y}$ are the means of attributes $X$ and $Y$, respectively.  For each $r$ value, we square the result to obtain the coefficient of determination, $R^2$, which indicates any potential correlation between attributes.
 
 We also apply the above analysis to node operators, whereby we attempt to analyze whether there is any correlation between variability in the market share of the node operators and the clients that they run or relayers they use.
 
 \subsection{Correlation between operators size, clients and relayers}
+\label{sec:correlation-between-operators-size-clients-and-relayers}
 
 Our analysis also attempts to calculate a correlation between the market share of node operators and the consensus clients they run.
 
-This  involves analyzing the set of node operators $K$, each possessing a market share represented by $m$, along with the percentage breakdown of the clients they run, denoted as $c = { c_1, c_2 . . . c_n }$. Each $c_i$ signifies the percentage of a specific client in the known client set $C$, run by the operator $k_i$ in $K$.
+This  involves analyzing the set of node operators $K$, each possessing a market share represented by $m$, along with the percentage breakdown of the consensus clients they run, denoted as $c = { c_1, c_2 . . . c_n }$. Each $c_i$ signifies the percentage of a specific client in the known client set $C$, run by the operator $k_i$ in $K$.
 
 A function is employed to construct a matrix, denoted as $M$, wherein each row corresponds to a market share percentile $d \in \left\{0, 1, ... 9\right\}$, and each column corresponds to a client $c \in C$. In this matrix, each column aggregates the sum of percentages of that client that is run by all node operators in the dataset possessing the respective market share percentile.
 
 To generate this matrix, the function $f: m_i \mapsto d$, iterates through the set $K$. For each entity $k_i \in K$, it maps the entity's percentage market share $m_i$ to the corresponding percentile $d \in \left\{0, 1, ... 9\right\}$ and increases the values in the columns of $M$ corresponding to each client $c_j \in C$ by the percentage run by node operator $k_i$.
 
-The resulting matrix provides view of any correlation of market share of node operators to the clients they use, and the diversity of clients they use, visualized as:
+The resulting matrix provides a view of any correlation of market share of node operators to the clients they use, and the diversity of clients they use, visualized as:
 
 \[
 M = \begin{bmatrix}
@@ -242,10 +246,12 @@ where $\nu$ is the size of the set of clients, and $\eta$ is the size of the set
 This analysis can indicate if any particular client is favoured by larger or smaller node operators. The process is repeated for relayers as well, whereby we try to establish any correlation between the market share of node operators and which relayers they use, as well as the number of relayers they use.
 
 \subsection{Calculating correlation between individual nodes}
+\label{sec:calculating-correlation-between-individual-nodes}
 
-In order to determine if there is any correlation between individuals nodes on the network across various attributes, we analysed the dataset from Miga Labs, which contain data on individual nodes on the network, including country, client, ISP, number of attestation subnets advertised. For the purposes of our study, we limited our analysis to nodes that had greater than 2 attestation subnets advertised, as these are the most likely to be nodes with validator clients attached.
+In order to determine if there is any correlation between individual nodes on the network across various attributes, we analysed dataset B, which contains data on individual nodes on the network, including country, client, ISP, and number of attestation subnets advertised.
 
 \subsubsection{Calculating Chi-squared value between attributes}
+\label{sec:calculating-chi-squared-value-between-attributes}
 
 We analyzed the data by calculating the Chi-squared value between each pairwise attribute, we then calculated the corresponding p-value, and finally derived the Cramers-V value.
 
@@ -262,8 +268,9 @@ E_{ij} = \frac{(\text{row sum})(\text{column sum})}{\text{total number of nodes}
 \]
 
 \subsubsection{Calculating Cramers-V value between attributes}
+\label{sec:calculating-cramers-v-value-between-attributes}
 
-We also calculate the Cramers-V value \cite{akoglu2018user} for each pairwise as a complimentary measurement to the result of both the Chi-squared value and p-value of each pairwise comparison of attributes.  While taking a single measurement in isolation can give us unreliable results, a combination of measurements can give us more confidence in the results where they broadly align.
+We also calculate the Cramers-V value \cite{akoglu2018user} for each pairwise comparison as a complimentary measurement to the result of both the Chi-squared value and p-value of each pairwise comparison of attributes, in order to help to gauge the strength of any observed correlation.
 
 Cramer's V is calculated using the following formula:
 
@@ -282,6 +289,7 @@ Where:
 Cramer's V ranges from 0 to 1, where 0 indicates no correlation between the attributes, and 1 indicates they are totally correlated with one another.  While this allows us to determine if there is any correlation between the market share of node operators and the consensus clients they run, we also apply this analysis to size of node operators and relayers they use.
 
 \subsection{Ranking the level of correlation between attributes}
+\label{sec:ranking-the-level-of-correlation-between-attributes}
 
 Our analysis also includes a function to determine which attributes display the highest amount of correlation between individual nodes in the network.
 
@@ -291,9 +299,9 @@ Where the attributes are equal for each record, we record a 1, where they are no
 The result is a bitstring for each attribute from which we can derive a hamming weight.
 The process can be described as incrementing a count every time the attribute for each record being compared is equal, and is essentially a method for deriving a count for each unique value observed in a specific attribute. We then repeat the entire process for the next attribute.
 
-The result is a series of hamming weights for each record compared to every other record, for each attribute. We then add all the hamming weights together for each record, so every record has an aggregate hamming weight, resulting in a table with the record index in column 1, a column for the hamming weight of each attribute, and a column for the sum of all hamming weights for that record.
+The result is a series of hamming weights for each record compared to every other record, for each attribute. We then add all the hamming weights together for each record, so every record has an aggregate weight, resulting in a table with the record index in column 1, a column for the hamming weight of each attribute, and a column for the sum of all hamming weights for that record.
 
-This aggregate hamming weight indicates the level of correlation of the respective node to other nodes, and allows us to rank the dataset to help identifying patterns between correlations. The hamming weights in each column represent the sum of all observances of the value of the attribute of the respective record.
+This aggregate weight indicates the level of correlation of the respective node to other nodes, and allows us to rank the dataset to help identifying patterns between correlations. The hamming weights in each column represent the sum of all observances of the value of the attribute of the respective record.
 
 The process is defined formally as:
 
@@ -303,15 +311,15 @@ Let \( N \) be the number of records in the dataset, and \( M \) be the number o
 \delta \left( i_k,j_k \right) = \begin{cases} 1 & \text{if } i_k = i_k \\ 0 & \text{if } i_k \neq j_k \end{cases}
 \]
 
-The Hamming weight \( H_{ik} \) for record \( i \) and attribute \( k \) is the sum of all binary values for that attribute across all pairwise comparisons:
+The hamming weight \( H_{ik} \) for record \( i \) and attribute \( k \) is the sum of all binary values for that attribute across all pairwise comparisons:
 
 \[ H_{ik} = \sum_{j=1, j\neq i}^{N} \delta \left( i_k,j_k \right) \]
 
-The aggregate Hamming weight \( A_{i} \) for record \( i \) is the sum of Hamming weights across all attributes:
+The aggregate hamming weight \( A_{i} \) for record \( i \) is the sum of hamming weights across all attributes:
 
 \[ A_{i} = \sum_{k=1}^{M} H_{ik} \]
 
-The final table can be represented as a matrix \( T \) with \( N \) rows and \( M+2 \) columns, where the first column contains the record index, columns \( 2 \) to \( M+1 \) contain the Hamming weights for each attribute, and the last column contains the aggregate Hamming weight:
+The final table can be represented as a matrix \( T \) with \( N \) rows and \( M+2 \) columns, where the first column contains the record index, columns \( 2 \) to \( M+1 \) contain the hamming weights for each attribute, and the last column contains the aggregate hamming weight:
 
 \[ T = \begin{bmatrix} 
 1 & H_{1,1} & H_{1,2} & \ldots & H_{1,M} & A_{1} \\
@@ -322,20 +330,20 @@ N & H_{N,1} & H_{N,2} & \ldots & H_{N,M} & A_{N}
 
 \vspace{2pt}
 
-This matrix \( T \) represents a table with the record index, individual Hamming weights for each attribute, and the aggregate Hamming weight for each record.
+This matrix \( T \) represents a table with the record index, individual hamming weights for each attribute, and the aggregate hamming weight for each record.
 
 \section{Results}
 \label{sec:results}
 
-We presents the results from the application of each calculation described in the previous section to the dataset A and B.  The results are detailed in the relevant subsections that follow.  Discussion of the results and their possible interpretations, as well as any future work that the results suggest, is expanded upon in the conclusion section.
+We present the results from the application of each calculation described in the previous section to the dataset A and B.  The results are detailed in the relevant subsections that follow.  Discussion of the results and their possible interpretations, as well as any future work that the results suggest, is expanded upon in the conclusion section.
 
 \subsection{Calculating correlation between variability in attributes}
 
-Our analysis first examines the level of variability in the clients and relayers used by each node operator.  Each node operator is given a coefficient of variance for each attribute, calculated from the respective percentages of clients and relayers that the node operator uses. We then attempt to calculate any correlation between the variability in each attribute by calculating the $R^2$ value for each pair of attributes.  This method is also applied to the variability in clients, relayers and node operators that each staking pool uses.
+Our analysis first examines the level of variability in the clients and relayers used by each node operator, as described in section~\ref{sec:correlation-between-variability-in-attributes}.  Each node operator is given a coefficient of variance for each attribute, calculated from the respective percentages of clients and relayers that the node operator uses. We then attempt to calculate any correlation between the variability in each attribute by calculating the $R^2$ value for each pair of attributes.  This method is also applied to the variability in clients, relayers and node operators that each staking pool uses.
 
 \subsubsection{Correlation of variability across attributes for Node Operators}
 
-The following table presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to node operators. As can be seen from the results below, \textbf{there is strong correlation between the market share of the node operator and the variability in the distribution of relays they have procured blocks from}. This is could be explained by the observation that larger node operators ostensibly tend to connect to more relayers then smaller operators and solo stakers, who tend to connect to only one or a small set of relayers.  However, this observation may be partially explained by the fact solo stakers propose blocks relatively infrequently, and may have proposed only one or two blocks within the sample period, and this may be represented in the data in terms of which relayers they procured those blocks from.  In this context they may have connected to multiple relayers, but only proposed blocks that were sourced from one or two relayers within the sample period.
+The following table presents the $R^2$ values for comparison of variability between attributes in datasets A with respect to node operators. As can be seen from the results below, \textbf{there is strong correlation between the market share of the node operator and the variability in the distribution of relays they have procured blocks from}. This is could be explained by the observation that larger node operators ostensibly tend to connect to more relayers then smaller operators and solo stakers, who may tend to connect to only one or a small set of relayers.  However, this observation may be partially explained by the fact solo stakers propose blocks relatively infrequently, and may have proposed only one or two blocks within the sample period, and this may be represented in the data in terms of which relayers they procured those blocks from.  In this context they may have connected to multiple relayers, but only proposed blocks that were sourced from one or two relayers within the sample period. Further analysis is required to make the observation more conclusive.
 
 \begin{table}[htbp]
     \centering
@@ -353,7 +361,7 @@ The following table presents the $R^2$ values for comparison of variability betw
 
 \subsubsection{Correlation of variability across attributes for Staking Pools}
 
-The data in table \ref{tab:r2-value-staking-pools} represents the $R^2$ values for comparison of variability between attributes in datasets A with respect to staking pools.
+The data in table \ref{tab:r2-value-staking-pools} represents the $R^2$ values for comparison of variability between attributes in dataset A with respect to staking pools.
 
 \begin{table}[htbp]
     \centering
@@ -371,7 +379,7 @@ The data in table \ref{tab:r2-value-staking-pools} represents the $R^2$ values f
         Clients vs. Node Operators & 0.07 \\ \hline
     \end{tabular}
     \vspace{10pt}
-    \caption{$R^2$ Values for Different Relationships}
+    \caption{$R^2$ Values for Staking Pools}
     \label{tab:r2-value-staking-pools}
 \end{table}
 
@@ -395,13 +403,13 @@ A comparison between the standard HHI and modified HHI suggests a low level of m
 
 As part of our analysis, we also calculated the modified HHI for individual nodes in the network in dataset B.  In order to do this, we compared nodes across 3 attributes, which were client, country and ISP.  Market share for each node was calculated by estimating the number of validators attached to the node.  For all nodes with a number of advertised attestation subnets below 64, we set the number of validators to equal the number of attestation subnets.  We excluded any nodes that do not advertise any subnets.  For the nodes that advertise 64 or more attestation subnets, we assigned a random number of validators, based on the distribution of validators observed in dataset C.
 
-The resulting modified HHI is 1,137. Though this is a very similar result to the modified HHI for staking pools, though this may be entirely coincidental.  This value can be used as benchmark against further analysis, such as the analysis conducted in \ref{sec:results}, which we rank the level of correlation between attributes in Dataset B. 
+The resulting modified HHI is 1,137. Though this is a very similar result to the modified HHI for staking pools, this may be entirely coincidental.  This value can be used as benchmark against further analysis, such as the analysis conducted in section \ref{sec:ranking-the-level-of-correlation-between-attributes-in-dataset-b}, in which we rank the level of correlation between attributes in Dataset B.
 
 \subsection{Analysis of Individual Nodes}
 
 \subsubsection{Measuring the correlation between attributes in Dataset B}
 
-We present the results of analysing the correlation between individual nodes on the network in dataset B. The results are shown in table \ref{tab:pairwise-comparisons-dataset-b}, for the Chi-squared, P-value and Cramér's V value each each pairwise comparison of attributes.
+We present the results of analysing the correlation between individual nodes on the network in dataset B. The results are shown in table \ref{tab:pairwise-comparisons-dataset-b}, for the Chi-squared, P-value and Cramér's V value for each pairwise comparison of attributes.
 
 \begin{table}[ht]
     \centering
@@ -426,9 +434,9 @@ We present the results of analysing the correlation between individual nodes on 
     \label{tab:pairwise-comparisons-dataset-b}
 \end{table}
 
-As is expected, there is a strong correlation between the country of operation and the ISP used.  This is exactly what we would expect to see given that most ISPs only serve their domestic market.
+As is expected, there is a very strong correlation between the country of operation and the ISP used.  This is exactly what we would expect to see given that most ISPs only serve their domestic market.
 
-There is a very slight correlation between the number of advertised subnets and the country of operation, however, the effect size, as measured by Cramér's V of 0.048, suggests a weak association between them, which suggests that the number of validators attached to a node, and therefore the size of the node operator, is not necessarily a factor in the geographical location of the node itself.
+There is a slight correlation between the number of advertised subnets and the country of operation, however, the effect size, as measured by Cramér's V of 0.048, suggests a weak association between them, which suggests that the number of validators attached to a node, and therefore the size of the node operator, is not necessarily a factor in the geographical location of the node itself.
 
 \begin{figure}[htbp]
     \centering
@@ -467,9 +475,9 @@ There is a very slight correlation between the number of advertised subnets and 
     \label{fig:relative-level-of-correlation-between-attributes}
 \end{figure}
 
-An interesting observation from the results shown in figure \ref{fig:relative-level-of-correlation-between-attributes} is that there is a relatively low correlation (or more specifically a low effect size) between the country that nodes are based in, and the number of attestation subnets that they advertise.  It is widely acknowledged that there is a strong concentration of nodes in the US and EU geographical regions, with the Rated dashboard showing 38.29\% of nodes in the US \cite{ratednetwork2024}.  The low correlation between the attributes of "country" and "attestation subnets" would indicate that nodes that have multiple validators attached to them, and therefore likely to be operated by node operators serving staking pools, may be more geographically distributed.  Available data from Lido suggests that they have a slightly wider geographical distribution of nodes \cite{lido2024}. [ALSO RUN ANALYSIS ON DATA OF ONLY 64 SUBNETS]
+An interesting observation from the results shown in figure \ref{fig:relative-level-of-correlation-between-attributes} is that there is a relatively low correlation (or more specifically a low effect size) between the country that nodes are based in, and the number of attestation subnets that they advertise.  It is widely acknowledged that there is a strong concentration of nodes in the US and EU geographical regions, with the Rated dashboard showing 38.29\% of nodes in the US \cite{ratednetwork2024}.  The low correlation between the attributes of ``country'' and ``attestation subnets'' would indicate that nodes that have multiple validators attached to them, and therefore likely to be operated by node operators serving staking pools, may be more geographically distributed.  Available data from Lido suggests that they have a slightly wider geographical distribution of nodes \cite{lido2024}.
 
-The number of advertised attestation subnets and the consensus client used seem to be significantly associated ($\chi$² = 2176.21, p \textless 0.01) with a moderate effect size (V = 0.233), which suggests some sort of meaningful relationship. Similarly, there is a significant association between ISP and consensus client ($chi$² = 5883.76, p \textless 0.001) with a moderate effect size (V = 0.186). These indicators of correlation may potentially indicate preferences among larger node operators, who may have a bias toward high performance and low latency operational configurations.
+The number of advertised attestation subnets and the consensus clients used seem to be significantly associated ($\chi$²=2176.21, p\textless 0.01) with a moderate effect size (V = 0.233), which suggests some sort of correlation. Similarly, there is a significant association between ISP and consensus client ($\chi$²=5883.76, p\textless 0.001) with a moderate effect size (V=0.186). \textbf{These indicators of correlation may potentially indicate preferences among larger node operators, who may have a bias toward high performance and low latency operational configurations.}
 
 \begin{comment}
 We also include the results of the same calculations applied to dataset C, which are included in table \ref{tab:pairwise-comparisons-dataset-c}.  This analysis includes measures of correlation between the number of validators attached to clients and other attributes, including country, ISP and clients.
@@ -500,7 +508,7 @@ We observe a similar trend in the analysis of dataset C, whereby the there is st
 
 \subsubsection{Operator market share and clients used}
 
-The scatter plot in figure \ref{fig:average_client_percentage_by_percentile} show the correlation between the market share of node operators in Dataset A, and the average percentage of each client that node operators in the respective market share percentile use.
+The scatter plot in figure \ref{fig:average_client_percentage_by_percentile} shows the correlation between the market share of node operators in Dataset A, and the average percentage of each consensus client that node operators in the respective market share percentile use.
 
 \begin{figure}[htbp]
   \centering
@@ -538,17 +546,17 @@ The scatter plot in figure \ref{fig:average_client_percentage_by_percentile} sho
   \label{fig:average_client_percentage_by_percentile}
 \end{figure}
 
-The 6 main consensus clients are listed in the legend below the chart.  The results displayed in the chart roughly align with the market share of the various clients, however, the average percentage of client use changes for different clients as the operator's market share increases.  As can be observed, the Prysm client has a larger average percentage of use among larger node operators whereas Nimbus and Lighthouse sees less average percentage use as the size of the node operator increases.
+The 6 main consensus clients are listed in the legend below the chart.  The results displayed in the chart roughly align with the market share of the various clients, however, the average percentage of client use changes for different clients as the operator's market share increases.  \textbf{As can be observed, the Prysm client has a larger average percentage of use among larger node operators whereas Nimbus and Lighthouse sees less average percentage use as the size of the node operator increases.}
 
-This observed trend could potentially be attributed to the fact that Lighthouse has been reported to be highly stable and performant, making it a preferred choice in for larger node operators, whereas Nimbus requires less hardware resources, possibly making it more appealing to solo stakers \cite{ranjan2023}.
+This observed trend could potentially be attributed to the fact that Lighthouse has been reported to be highly stable and performant \cite{ranjan2023}, which would make it a preferred choice for larger node operators, whereas Nimbus requires less hardware resources, possibly making it more appealing to solo stakers.
 
-The data below broadly agrees with the consensus client distribution, which has Prysm and Lighthouse clients at approximately 30\% and 40\%, with other clients having lower shares.
+The data broadly agrees with the overall consensus client distribution, which has Prysm and Lighthouse clients at approximately 30\% and 40\%, with other clients having lower shares.
 
 % An interesting exercise for future work is to apply the same analysis to staking pools instead of node operators, measuring any correlation between their market share and the clients and relayers they use.
 
 \subsubsection{Operator market share and relayers used}
 
-The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} shows the correlation between the market share of node operators and the average percentage of each relayer that node operators in the respective market share percentile use.  As can be observed from the chart, there is an increase in variability as the market share / size of the node operator increases.  This is in line with previous analysis that showed an $R^2$ value of 0.37 for Market Share vs. Relayers.
+The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} shows the correlation between the market share of node operators and the average percentage of each relayer that node operators in the respective market share percentile use.  As can be observed from the chart, there is an increase in variability as the market share / size of the node operator increases.  This is in line with previous analysis that showed an $R^2$ value of 0.37 for Market Share vs. Relayers. Again, this potentially indicates that larger node operators may connect to more relayers, but this requires further analysis.
 
 \begin{figure}[htbp]
   \centering
@@ -587,6 +595,7 @@ The scatter plot in figure \ref{fig:average_relayer_percentage_by_percentile} sh
 \end{figure}
 
 \subsection{Ranking the level of correlation between attributes in Dataset B}
+\label{sec:ranking-the-level-of-correlation-between-attributes-in-dataset-b}
 
 Our analysis attempts to rank the level of correlation between the various attributes in dataset B, pertaining to individual nodes on the network.  The results are visualized in figure \ref{fig:attribute-correlation-ranking-dataset-b}, as a scatter-plot chart.
 
@@ -600,13 +609,13 @@ While these trends do not point to any linear relationship (where the more subne
 
 % While we would expect to see a high level of correlation between nodes with reference to clients, largely due to the fact that there are only 6 clients in a population of 5,507 nodes, the fact that there are many nodes that share the client, that also share the same country, and also share the same number of subnets, suggests that there may be a correlation between these variables.
 
-We observe several horizontal bands within the data in figure \ref{fig:attribute-correlation-ranking-dataset-b}.  These bands represent specific attribute values that are common within the dataset.  These horizontal bands are more dense around 20,000 to 50,000 on the horizontal axis, and appear in near isolation toward right hand side of the scatter-plot, above 20K (i.e. with fewer other values for those nodes).  This points to a cluster of nodes that share common values across a number of attributes.  The specific values for this cluster listed as follows:
+We observe several horizontal bands within the data in figure \ref{fig:attribute-correlation-ranking-dataset-b}.  These bands represent specific attribute values that are common within the dataset.  These horizontal bands are more dense around 20,000 to 50,000 on the horizontal axis, and appear in near isolation toward right hand side of the scatter-plot, above 50K (i.e. with fewer other values for those nodes).  This points to a cluster of nodes that share common values across a number of attributes.  The specific values for this cluster listed as follows:
 
 The three distinct blue horizontal bands in the middle of the subgraph represent the nodes that advertise either 1, 2, or 64 attestation subnets, which collectively accounts for approximately 70\% of the dataset. This shows two distinct groups of solo stakers and larger node operators within the data.
 
 The two green horizontal bands near the top of the chart represent the consensus client market shares of Lighthouse and Prysm, which both have 40\% and 30\% shares of the market respectively.
 
-The distinct red horizontal band near the top of the chart represents nodes that are based in the US, which accounts for 37.1\% of the dataset, followed by another distinct red horizontal band below the center of the vertical range, which represents nodes based in Germany, which accounts for 14.9\% of the dataset.  This corresponds broadly with the observed geographical centralization in network nodes in general for both client and execution nodes \cite{nodewatch2024}.
+The distinct red horizontal band near the top of the chart represents nodes that are based in the US, which accounts for 37.1\% of the dataset, followed by another distinct red horizontal band below the center of the vertical range, which represents nodes based in Germany, which accounts for 14.9\% of the dataset.  This corresponds broadly with the observed geographical centralization in network nodes in general for both consensus and execution nodes \cite{nodewatch2024}.
 
 \begin{figure}[htbp]
     \centering
@@ -619,15 +628,15 @@ The distinct red horizontal band near the top of the chart represents nodes that
     \label{fig:attribute-correlation-ranking-dataset-b}
 \end{figure}
 
-The top right hand quadrant of the chart identifies a cluster of nodes, which have the highest aggregate amount of common values for each attribute.  These are nodes that based in the US, are running either Lighthouse or Prysm, and are advertising either 1 or 2 attestation subnets, suggesting they are operating as solo stakers.  While there is a definite cluster of such nodes in the data, they are constrained to the far right hand side of the graph, suggesting a somewhat small effect size, which aligns with the results from section VI, which concluded a low effect size for the correlation between country and subnets.
+The top right hand quadrant of the chart identifies a cluster of nodes, which have the highest aggregate amount of common values for each attribute.  \textbf{These are nodes that based in the US, are running either Lighthouse or Prysm, and are advertising either 1 or 2 attestation subnets, suggesting they are operating as solo stakers}.  While there is a definite cluster of such nodes in the data, they are constrained to the far right hand side of the graph, suggesting a somewhat small effect size, which aligns with the results from section VI, which concluded a low effect size for the correlation between country and subnets.  This suggests that this is not currently a concerning trend, but is potentially a trend worth monitoring.
 
 \subsection{Ranking the level of correlation between attributes in Dataset C}
 
-The same analysis was applied to dataset C, the results of which are displayed in \ref{fig:attribute-correlation-ranking-dataset-c}.  The scatter-plot displays nodes that have more overall correlation between attributes to the right.  As can be observed, the highest level of correlation is found in the top right quadrant of the chart, where there are clear levels of correlation between client, country and the number of validators attached to the node. % This aligns with the results displayed in table \ref{tab:pairwise-comparisons-dataset-c}, that shows similar levels of correlation.
+The same analysis was applied to dataset C, the results of which are displayed in figure \ref{fig:attribute-correlation-ranking-dataset-c}.  The scatter-plot displays nodes that have more overall correlation between attributes to the right.  As can be observed, the highest level of correlation is found in the top right quadrant of the chart, where there are clear levels of correlation between client, country and the number of validators attached to the node. % This aligns with the results displayed in table \ref{tab:pairwise-comparisons-dataset-c}, that shows similar levels of correlation.
 
 It is worth noting that while including the validator count as a variable in this analysis seems counter-intuitive due to the fact that is a continuous variable, as opposed to categorical like the other attributes, there are broad categories within the data, such as solo stakers for example, and many medium sized stakers, all of whom share similar numbers of validators, making the variable suitable for consideration as a categorical variable.
 
-The correlation between validators and country is based on the number of validators nodes have in common, which does not necessarily indicate a linear relationship, whereby an increase in the number of validators would increase the probability of being in a certain country.  The distribution of the the number of validators per node has a mode of 1 and median of 4, forming a bottom heavy distribution that would suggest that geographical concentration of nodes may be driven more by solo stakers, though only to a relatively low degree.
+The correlation between validators and country is based on the number of validators nodes have in common, which does not necessarily indicate a linear relationship, whereby an increase in the number of validators would increase the probability of being in a certain country.  The distribution of the the number of validators per node has a mode of 1 and median of 4, \textbf{forming a bottom heavy distribution that would suggest that geographical concentration of nodes may be driven more by solo stakers, though only to a relatively low degree}.
 
 This may explain the ostensibly contradictory results in table \ref{tab:pairwise-comparisons-dataset-b}, which shows a relatively low level of correlation between advertised subnets and the country of operation.
 
@@ -642,35 +651,35 @@ This may explain the ostensibly contradictory results in table \ref{tab:pairwise
     \label{fig:attribute-correlation-ranking-dataset-c}
 \end{figure}
 
-\section{Discussion}
-\label{sec:discussion}
+\section{Conclusion}
+\label{sec:conclusion}
 
 Overall the results identified a number of broad observable trends:
 
-Larger node operators tend to propose blocks from more relayers then smaller operators and solo stakers, who tend to propose blocks from only one or a small set of relayers.  This can potentially be explained by solo stakers winning less blocks, but also might be an indication that solo stakers connect to fewer relayers, though without more data it is difficult to disambiguate.
+Larger node operators tend to propose blocks from more relayers then smaller operators and solo stakers, who tend to propose blocks from only one or a small set of relayers.  This can potentially be explained by solo stakers winning less blocks, but also might be an indication that solo stakers connect to fewer relayers, though without more data it is difficult to determine.
 
 There is a moderate level of correlation between the ISP used and the number of attestation subnets advertised, which may suggest that nodes that have multiple validators attached, usually larger node operators, are often using the same public cloud providers, such AWS or Azure.
 
 The Prysm consensus client has a larger average percentage of use among larger node operators, whereas Nimbus and Lighthouse have less. This observed trend could potentially be attributed to the fact that Lighthouse has been reported to be highly stable and performant, making it a preferred choice in for larger node operators, whereas Nimbus requires less hardware resources, possibly making it more appealing to solo stakers \cite{ranjan2023}.
 
-We observe indications that there is a concentration of geographical location of validator nodes, which corresponds broadly with the observed geographical centralization of all nodes on the network, i.e. validators nodes and non-validator nodes together. However, the discrepancy between the high correlation of geographical location and number of attached validators (see \ref{fig:attribute-correlation-ranking-dataset-c}), with the low level of correlation between geographical location and ISP subnets advertised, (see \ref{fig:relative-level-of-correlation-between-attributes}), suggests that geographical concentration may in fact be driven more by smaller node operators and solo stakers, rather than by larger node operators.  This could be due in part to geographical diversity policies of staking pools such as Lido \cite{vanom2024}.
+We observe indications that there is a concentration of geographical location of validator nodes, which corresponds broadly with the observed geographical centralization of all nodes on the network, i.e. validators nodes and non-validator nodes together. However, the discrepancy between the high correlation of geographical location and number of attached validators (see figure \ref{fig:attribute-correlation-ranking-dataset-c}), with the low level of correlation between geographical location and attestation subnets advertised, (see \ref{fig:relative-level-of-correlation-between-attributes}), suggests that geographical concentration may in fact be driven more by smaller node operators and solo stakers, rather than by larger node operators.  This could be due in part to geographical diversity policies of staking pools such as Lido \cite{vanom2024}.
 
 In summary, it would appear that there is both a slightly lower degree of client diversity, as well as a higher concentration of nodes in public could data centres, that can attributed to larger node operators.  However, larger node operators tend to increase the diversity in mev-boost relays used, and there are indications that they may favor geographical diversity of nodes.
 
-\section{Conclusion}
-\label{sec:conclusion}
+\section{Discussion}
+\label{sec:discussion}
 
-Observing the percentage breakdown of certain aspects of the node distribution within the network can reveal important insights.  The insights include any unequal distribution of client software used by nodes, or unequal distribution of geographical region of operation.  Both concerns may have implications for the health of the network.  However, by looking at the level of correlation between staking pools and node operators on the network, we can reveal useful clues as to where the drivers of any concentration occurs.  For example, observed trends from our results suggest that larger node operators are potential driving a concentration in certain areas, though to a degree that is not concerning, as indicated by a modified HHI value of 0.
+Observing the percentage breakdown of certain aspects of the node distribution within the network can reveal important insights.  The insights include any unequal distribution of client software used by nodes, or unequal distribution of geographical region of operation.  Both concerns may have implications for the health of the network.  However, by looking at the level of correlation between staking pools and node operators on the network, we can reveal useful clues as to where the drivers of any concentration occur.  For example, observed trends from our results suggest that larger node operators are potential driving a concentration in certain areas, although to a degree that is not currently concerning.
 
-Further to identifying potential drivers of concentration through looking at patterns of correlation, there is also a benefit in developing a standardized index for the measurement of decentralization.  While it can be useful to look at individual aspects of a network, such as geographical distribution of nodes, distribution of nodes by public cloud provider, distribution of client software used etc., it can be a challenge to agree on the overall effect level of decentralization when these various measurements are combined.  This can be all the more challenge when attempting the measure any changes in the overall effective level of decentralization over time.  Similar challenges in traditional economic sectors led to the development of economic indices such as the Gini Index and Herfindahl–Hirschman Index.  For the same reason, it is useful to have a standard index that can be applied to cryptocurrency networks to derive a high-level, comparative measurement.
+Further to identifying potential drivers of concentration through looking at patterns of correlation, there is also a benefit in developing a standardized index for the measurement of decentralization.  While it can be useful to look at individual aspects of a network, such as geographical distribution of nodes, distribution of nodes by public cloud provider, distribution of client software used etc., it can be a challenge to agree on the overall effective level of decentralization when these various measurements are combined.  This can be all the more challenge when attempting to measure any changes in the overall effective level of decentralization over time.  Similar challenges in traditional economic sectors led to the development of economic indices such as the Gini Index and Herfindahl–Hirschman Index.  For the same reason, it is useful to have a standard index that can be applied to cryptocurrency networks to derive a high-level, comparative measurement.
 
-The modified HHI proposed in this paper can be applied to other areas as well.  In the future the same model can be applied to Layer 2 rollups as they start to decentralize their sequencers.  When this starts to happen, we may have a scenario where some L2s will have a large market share, but will be fully centralized, where other L2s will have a smaller market share and will have fully decentralized sequencers and/or provers.  In this scenario, simply measuring decentralization via observing the relative market share of each L2 is insufficient to capture the effective level of decentralization within the ecosystem.  There may emerge several nuanced factors that should be considered within a decentralized sequencer set, or a shared sequencer network, such as governance parameters, geographic distribution of nodes, or the jurisdiction of headquarters of companies of validator node operators.  It may be the case that some L2 have a rich client diversity within their validator set whereas others do not.  These considerations can be used in conjunction with existing models such as existing methodologies and frameworks \cite{l2beat2024}.
+The modified HHI proposed in this paper can be applied to other areas as well.  In the future the same model can be applied to Layer 2 rollups as they start to decentralize their sequencers.  When this starts to happen, we may have a scenario where some L2s will have a large market share, but will be fully centralized, where other L2s will have a smaller market share and will have fully decentralized sequencers and/or provers.  In this scenario, simply measuring decentralization via observing the relative market share of each L2 is insufficient to capture the effective level of decentralization within the ecosystem.  There may emerge several nuanced factors that should be considered within a decentralized sequencer set, or a shared sequencer network, such as governance parameters, geographic distribution of nodes, or the jurisdiction of headquarters of companies of validator node operators.  It may be the case that some L2 have a rich client diversity within their validator set whereas others do not.  These considerations can be used in conjunction with existing models as well as existing methodologies and frameworks \cite{l2beat2024}.
 
-It is worth noting that it is currently quite challenging to collect accurate data on the  correlation between validators and nodes, and node operators.  This is in part by design, as the protocol is designed in such a way as to protocol the identity, including the IP address, of validator nodes.  This provides a level of protection from DDOS attacks, which could have economic consequences if the validator if known to be a proposer and is not able to deliver a block to the network.  However, this also makes it challenging to measure the level of correlation between nodes, which can point to the drivers of concentration in certain areas.
+It is worth noting that it is currently quite challenging to collect accurate data on the  correlation between validators and nodes, and node operators.  This is in part by design, as the protocol is designed in such a way as to protect the identity, including the IP address, of validator nodes.  This provides a level of protection from DDOS attacks, which could have economic consequences if the validator is known to be a proposer and is not able to deliver a block to the network.  However, this also makes it challenging to measure the level of correlation between nodes, which can point to the drivers of concentration in certain areas.
 
 \section*{Acknowledgment}
 
-The authors would like to thank Vitalik Buterin for his time, and insights into developing an index that uses a correlation factor, and would like to thank Elias Sismos at Rated for his advice on using their data.
+The authors would like to thank Vitalik Buterin for his time and insights into developing an index that uses a correlation factor, and would like to thank Elias Sismos at Rated for his advice on using their data, and Rob Dawson at Consensys for his encouragement and support.
 
 \printbibliography
 
